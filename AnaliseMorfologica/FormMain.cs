@@ -125,15 +125,46 @@ namespace AnaliseMorfologica
             //x 693, y 1013
             formasGabarito = formasGabarito && (ValidaGabarito.ValidarGabarito(list, 635, 955, 693, 1013) == 1);
 
-
+            //msg se nao for gabarito:
             if (formasGabarito == false)
             {
-                MessageBox.Show("Não é um gabarito!");                   
+                MessageBox.Show("Não é um gabarito!");
+            }
+
+            if (formasGabarito)
+            {
+                //Valida alternativas:
+                // x 204, y 327
+                // x 254, y 377
+                int x0 = 204, y0 = 327, x1 = 254, y1 = 377;
+                int count = 0;
+                string[] answers = new string[10];
+                answers[0] = "1 - " + ValidaGabarito.ValidarAlternativa(list, x0, y0, x1, y1);
+                do
+                {
+                    answers[count] = count + 1 + " - " + ValidaGabarito.ValidarAlternativa(list, x0, y0, x1, y1);
+                    //incrementa y0 e y1 para descer de 1 a 10:
+                    y0 += 50 + 14;
+                    y1 += 50 + 14;
+                    count++;
+                } while (count < 10);
+
+                string resultado = "";
+                for (int i = 0; i < answers.Length; i++)
+                {
+                    resultado += answers[i] + "\n";
+                }
+                // Exibir saída
+                imgSaida.Image = saida.CriarBitmap();
+                MessageBox.Show(resultado);
+            }
+            else
+            {
+                // Exibir saída
+                imgSaida.Image = saida.CriarBitmap();
             }
 
 
-            // Exibir saída
-            imgSaida.Image = saida.CriarBitmap();
 
 
         }
